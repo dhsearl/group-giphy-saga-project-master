@@ -17,7 +17,6 @@ class Favorites extends Component {
                     <img src={each.url} alt={each.category_id} />
                     <p>{each.name}</p>
                     </div>
-                    
                 )}
                 {/* <pre>{JSON.stringify(this.props,null,2)}</pre> */}
                 

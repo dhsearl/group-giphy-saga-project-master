@@ -9,10 +9,12 @@ router.get('/', (req, res) => {
 //   const queryText = `SELECT favorites.id, favorites.url, category.id, category.name FROM favorites
 //   JOIN category ON favorites.category_id = category.id`
   const queryText = 
-  `SELECT favorites.id, favorites.url, category.name
+  `SELECT favorites.id as fav_id, favorites.url, category.name
   FROM category
+  JOIN favorites_category
+  ON category.id=favorites_category.category_id
   JOIN favorites 
-  ON favorites.category_id = category.id
+  ON favorites.id=favorites_category.favorites_id
   ORDER BY favorites.id
 `
   pool.query(queryText)
