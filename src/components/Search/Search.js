@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import SearchResults from '../SearchResults/SearchResults';
 
 
 class Search extends Component {
@@ -34,6 +35,7 @@ class Search extends Component {
 
                 </input>
                 <button onClick={() => this.gifSearch()}>Search!</button>
+                <SearchResults/>
             </div>
         );
     }

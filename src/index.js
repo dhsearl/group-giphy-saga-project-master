@@ -19,7 +19,7 @@ function* rootSaga() {
 
 function* getSaga(action) {
     const query = yield axios.post('/api/search', action.payload)
-    yield put({type: 'SET_GIFS', payload: query.data })
+    yield put({type: 'SET_GIFS', payload: query.data.data })
 }
 
 const gifsReducer = (state = [], action) => {

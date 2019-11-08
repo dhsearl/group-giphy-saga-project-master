@@ -18,16 +18,14 @@ router.post('/', (req, res) => {
       q: req.body,
     }
   }
-  ).then(result => {
-    console.log(result.data);
-
+  ).then(results => {
+    res.send(results.data);
   }).catch(error => {
-    // console.log('Giphy GET error', error);
-
+     console.log('Giphy GET error', error);
+      res.sendStatus(500);
   })
 
 
-  res.sendStatus(200);
 });
 
 
