@@ -31,10 +31,9 @@ class Search extends Component {
                 placeholder="search"
                 value={this.state.search}
                 onChange={(event) => this.inputHandleChange(event)}
-                >
-
-                </input>
+                ></input>
                 <button onClick={() => this.gifSearch()}>Search!</button>
+                <button onClick={()=>this.props.history.push("/favorites")}>Favorites</button>
                 <SearchResults/>
             </div>
         );
