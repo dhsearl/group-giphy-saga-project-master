@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 
 class SearchResults extends Component {
 
 
+
+    favoriteGif = (gifUrl) => {
+        this.props.dispatch({type:"SET_FAVORITE_GIF",payload:gifUrl})
+    }
+
+
     render() {
         return (
             <div>
-                {this.props.gifsReducer.map(gif => 
-                    <img src={gif.images.fixed_height.url}/>
+                {this.props.gifsReducer.map((gif,i) =>
+                    <div key={i}>
+                        <img src={gif.images.fixed_height.url} /><br/>
+                        <button onClick={() => this.favoriteGif(gif.images.fixed_height.url)}>Favorite</button>
+                    </div>
                 )}
-                <pre>{JSON.stringify(this.props.gifsReducer.data,null,2)}</pre>
+                <pre>{JSON.stringify(this.props.gifsReducer.data, null, 2)}</pre>
 
             </div>
         );

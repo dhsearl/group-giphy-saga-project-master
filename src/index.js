@@ -16,11 +16,17 @@ const sagaMiddleware = createSagaMiddleware();
 function* rootSaga() {
     yield takeEvery('GET_GIFS', getSaga)
     yield takeEvery('GET_FAVS', favoritesSaga)
+    yield takeEvery('SET_FAVORITE_GIF',favoriteGifSaga)
 }
 
 function* getSaga(action) {
     const query = yield axios.post('/api/search', action.payload)
     yield put({type: 'SET_GIFS', payload: query.data.data })
+}
+
+function* favoriteGifSaga(action) {
+    yield axios.post('/api/favorite',{url: action.payload});
+    yield put({type:"GET_FAVS"})
 }
 
 function* favoritesSaga() {
