@@ -22,6 +22,10 @@ router.get('/', (req, res) => {
 
 // add a new favorite 
 router.post('/', (req, res) => {
+  const query = `INSERT INTO favorites (url) VALUES ($1)`;
+  pool.query(query,[req.body.url])
+    .then(() => res.sendStatus(200))
+    .catch(console.error)
   res.sendStatus(200);
 });
 
