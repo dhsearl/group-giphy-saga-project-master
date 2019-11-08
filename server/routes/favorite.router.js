@@ -5,8 +5,16 @@ const router = express.Router();
 
 // return all favorite images
 router.get('/', (req, res) => {
-  const queryText = `SELECT * FROM "favorites"
-  JOIN "category" ON "favorites"."category_id"="category"."id"`
+//   WHY DOESN'T THIS WORK?
+//   const queryText = `SELECT favorites.id, favorites.url, category.id, category.name FROM favorites
+//   JOIN category ON favorites.category_id = category.id`
+  const queryText = 
+  `SELECT favorites.id, favorites.url, category.name
+  FROM category
+  JOIN favorites 
+  ON favorites.category_id = category.id
+  ORDER BY favorites.id
+`
   pool.query(queryText)
     .then(results => res.send(results.rows))
     .catch(console.error)
