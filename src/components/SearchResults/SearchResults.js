@@ -17,7 +17,7 @@ class SearchResults extends Component {
                 {this.props.gifsReducer.map((gif,i) =>
                     <div key={i}>
                         <img src={gif.images.fixed_height.url} /><br/>
-                        <button onClick={() => this.favoriteGif(gif.images.fixed_height.url)}>Favorite</button>
+                        <button onClick={() => this.favoriteGif(gif.images.fixed_height.url)}><i class="fas fa-bookmark"></i> Favorite</button>
                     </div>
                 )}
                 <pre>{JSON.stringify(this.props.gifsReducer.data, null, 2)}</pre>
