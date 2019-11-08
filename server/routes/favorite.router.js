@@ -5,7 +5,11 @@ const router = express.Router();
 
 // return all favorite images
 router.get('/', (req, res) => {
-  res.sendStatus(200);
+  const queryText = `SELECT * FROM "favorites"
+  JOIN "category" ON "favorites"."category_id"="category"."id"`
+  pool.query(queryText)
+    .then(results => res.send(results.rows))
+    .catch(console.error)
 });
 
 // add a new favorite 
