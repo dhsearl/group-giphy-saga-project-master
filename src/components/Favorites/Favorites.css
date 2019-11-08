@@ -1,0 +1,16 @@
+.cardArea{
+    margin:0 auto;
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.heatherCards {
+
+    text-align: center;
+    
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    height: 275px;
+    border: 1px solid pink;
+    box-shadow: 2px 2px #000;
+    margin: 1rem;
+}

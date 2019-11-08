@@ -15,11 +15,17 @@ const sagaMiddleware = createSagaMiddleware();
 
 function* rootSaga() {
     yield takeEvery('GET_GIFS', getSaga)
+    yield takeEvery('GET_FAVS', favoritesSaga)
 }
 
 function* getSaga(action) {
     const query = yield axios.post('/api/search', action.payload)
     yield put({type: 'SET_GIFS', payload: query.data.data })
+}
+
+function* favoritesSaga() {
+    const query = yield axios.get('/api/favorite')
+    yield put({type:"SET_FAVORITES", payload: query.data})
 }
 
 const gifsReducer = (state = [], action) => {
@@ -28,10 +34,20 @@ const gifsReducer = (state = [], action) => {
     }
     return state
 }
+const favoritesReducer = (state=[], action) =>{
+    if (action.type === 'SET_FAVORITES'){
+        console.log('favoritesReducer hit', action.payload);
+        return action.payload
+    }
+    return state
+}
+
+
 
 const store = createStore(
     combineReducers({
         gifsReducer,
+        favoritesReducer,
     }),
     applyMiddleware(sagaMiddleware, logger),
 );
