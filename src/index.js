@@ -14,15 +14,25 @@ import { combineReducers } from 'redux';
 const sagaMiddleware = createSagaMiddleware();
 
 function* rootSaga() {
-
+    yield takeEvery('GET_GIFS', getSaga)
 }
 
-const firstReducer = (state = {},action) => {
+function* getSaga(action) {
+    const query = yield axios.post('/api/search', action.payload)
+    yield put({type: 'SET_GIFS', payload: query.data })
+}
+
+const gifsReducer = (state = [], action) => {
+    if (action.type === 'SET_GIFS') {
+        return action.payload
+    }
     return state
 }
 
 const store = createStore(
-    combineReducers({firstReducer}),
+    combineReducers({
+        gifsReducer,
+    }),
     applyMiddleware(sagaMiddleware, logger),
 );
 
