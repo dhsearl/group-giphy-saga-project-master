@@ -5,18 +5,25 @@ const router = express.Router();
 
 // return all favorite images
 router.get('/', (req, res) => {
-//   WHY DOESN'T THIS WORK?
-//   const queryText = `SELECT favorites.id, favorites.url, category.id, category.name FROM favorites
-//   JOIN category ON favorites.category_id = category.id`
-  const queryText = 
-  `SELECT favorites.id as fav_id, favorites.url, category.name
-  FROM category
-  JOIN favorites_category
-  ON category.id=favorites_category.category_id
-  JOIN favorites 
-  ON favorites.id=favorites_category.favorites_id
-  ORDER BY favorites.id
-`
+
+  const queryText = `SELECT favorites.id AS fav_id, favorites.url, ARRAY_AGG(category.name) as category_array
+  FROM favorites
+  LEFT OUTER JOIN favorites_category ON favorites.id = favorites_category.favorites_id
+  LEFT OUTER JOIN category ON category.id = favorites_category.category_id
+  GROUP BY fav_id;
+  `
+ 
+//   const queryText = 
+//   `SELECT favorites.id as fav_id, favorites.url, category.name
+//   FROM category
+//   JOIN favorites_category
+//   ON category.id=favorites_category.category_id
+//   LEFT OUTER JOIN favorites 
+//   ON favorites.id=favorites_category.favorites_id
+//   GROUP BY favorites.id
+//   ORDER BY favorites.id
+  
+// `
   pool.query(queryText)
     .then(results => res.send(results.rows))
     .catch(console.error)

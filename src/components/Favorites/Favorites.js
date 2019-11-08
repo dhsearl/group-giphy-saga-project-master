@@ -18,7 +18,7 @@ class Favorites extends Component {
                     <p>{each.name}</p>
                     </div>
                 )}
-                {/* <pre>{JSON.stringify(this.props,null,2)}</pre> */}
+                <pre>{JSON.stringify(this.props,null,2)}</pre>
                 
             </div>
             </>
